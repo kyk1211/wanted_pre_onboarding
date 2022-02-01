@@ -13,7 +13,7 @@ export default function ClickToEdit() {
         <input
           type="text"
           defaultValue={name}
-          className={`w-44 h-10 border border-solid border-black text-center focus:py-5`}
+          className={`w-44 h-10 border border-solid border-black text-center focus:py-5 focus:text-sm`}
           onBlur={(e) => setName(e.target.value)}
         />
       </label>
@@ -22,7 +22,7 @@ export default function ClickToEdit() {
         <input
           type="text"
           defaultValue={age}
-          className={`w-44 h-10 border border-solid border-black text-center focus:py-5`}
+          className={`w-44 h-10 border border-solid border-black text-center focus:py-5 focus:text-sm`}
           onBlur={(e) => setAge(e.target.value)}
         />
       </label>
