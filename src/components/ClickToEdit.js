@@ -1,12 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function ClickToEdit() {
+  const [fade, setFade] = useState(false);
   const [name, setName] = useState('홍길동');
   const [age, setAge] = useState('20');
 
+  useEffect(() => {
+    setFade(true);
+  }, []);
+
   return (
     <div
-      className={`w-full h-96 flex items-center justify-center flex-col gap-8`}
+      className={`w-full h-96 flex items-center justify-center flex-col gap-8 transition-opacity duration-500 ease-in-out ${
+        fade ? `opacity-100` : `opacity-0`
+      }`}
     >
       <label>
         이름{' '}

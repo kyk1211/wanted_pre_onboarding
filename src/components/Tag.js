@@ -1,15 +1,22 @@
 import React, { useState } from 'react';
+import { useEffect } from 'react/cjs/react.development';
 
 export default function Tag() {
+  const [fade, setFade] = useState(false);
   const [click, setClick] = useState(false);
   const [tags, setTags] = useState([
     { content: 'CodeStates', id: 0 },
     { content: 'JJang', id: 1 },
   ]);
   const [input, setInput] = useState('');
+
+  useEffect(() => {
+    setFade(true);
+  }, []);
+
   return (
     <div
-      className="w-full h-1/3 flex items-center justify-center"
+      className={`w-full h-1/3 flex items-center justify-center`}
       onClick={() => setClick(false)}
     >
       <div
@@ -17,6 +24,8 @@ export default function Tag() {
           click
             ? `border border-purple-700 border-t-black`
             : 'border border-gray-200'
+        } transition-opacity duration-500 ease-in-out ${
+          fade ? `opacity-100` : `opacity-0`
         }`}
       >
         {tags.map((tag) => (

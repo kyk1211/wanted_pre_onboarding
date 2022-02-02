@@ -23,6 +23,11 @@ export default function AutoComplete() {
   const [autoValue, setAutoValue] = useState('');
   const [focus, setFocus] = useState(false);
   const [index, setIndex] = useState(null);
+  const [fade, setFade] = useState(false);
+
+  useEffect(() => {
+    setFade(true);
+  }, []);
 
   useEffect(() => {
     setIndex(null);
@@ -43,7 +48,9 @@ export default function AutoComplete() {
 
   return (
     <div
-      className="w-full h-5/6 flex flex-col items-center p-2"
+      className={`w-full h-5/6 flex flex-col items-center p-2 transition-opacity duration-500 ease-in-out ${
+        fade ? `opacity-100` : `opacity-0`
+      }`}
       onClick={() => setFocus(false)}
     >
       <div
@@ -131,7 +138,6 @@ export default function AutoComplete() {
           ))}
         </div>
       )}
-      {autoValue || inputValue}
     </div>
   );
 }
