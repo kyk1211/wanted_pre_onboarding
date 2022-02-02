@@ -27,7 +27,13 @@ export default function AutoComplete() {
   useEffect(() => {
     setIndex(null);
     if (inputValue) {
-      setFiltered(auto.filter((item) => item.includes(inputValue)).slice(0, 6));
+      setFiltered(
+        auto
+          .filter((item) =>
+            item.toLowerCase().includes(inputValue.toLowerCase())
+          )
+          .slice(0, 6)
+      );
     }
   }, [inputValue]);
 
@@ -45,7 +51,9 @@ export default function AutoComplete() {
         ${
           focus
             ? inputValue &&
-              auto.filter((item) => item.includes(inputValue)).length !== 0
+              auto.filter((item) =>
+                item.toLowerCase().includes(inputValue.toLowerCase())
+              ).length !== 0
               ? `rounded-b-none`
               : 'shadow-[0_4px_5px_-2px_#6b7280]'
             : 'shadow-[0_4px_5px_-2px_#6b7280]'
@@ -112,11 +120,7 @@ export default function AutoComplete() {
           {filtered.map((item, idx) => (
             <span
               key={idx}
-              className={`p-1 rounded cursor-pointer ${
-                index === idx ? `bg-gray-200` : ''
-              }`}
-              onMouseEnter={() => setIndex(idx)}
-              onMouseLeave={() => setIndex(null)}
+              className={`p-1 rounded cursor-pointer hover:bg-gray-200`}
               onClick={() => {
                 setAutoValue(item);
                 setFocus(false);

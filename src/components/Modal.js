@@ -3,10 +3,6 @@ import React, { useState } from 'react';
 export default function Modal() {
   const [show, setShow] = useState(false);
 
-  const stopBubble = (e) => {
-    e.stopPropagation();
-  };
-
   return (
     <>
       <div className="w-full h-96 flex items-center justify-center">
@@ -24,7 +20,7 @@ export default function Modal() {
         >
           <div
             className="bg-white w-96 h-60 rounded-xl"
-            onClick={(e) => stopBubble(e)}
+            onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center flex-col w-full h-full ">
               <p
