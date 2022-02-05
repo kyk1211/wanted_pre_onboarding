@@ -10,6 +10,16 @@ export default function Tag() {
   ]);
   const [input, setInput] = useState('');
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      setTags((prev) => [
+        ...prev,
+        { content: input, id: prev[prev.length - 1].id + 1 },
+      ]);
+      setInput('');
+    }
+  };
+
   useEffect(() => {
     setFade(true);
   }, []);
@@ -20,25 +30,33 @@ export default function Tag() {
       onClick={() => setClick(false)}
     >
       <div
-        className={`w-[600px] h-12 flex justify-start items-center gap-2 rounded-lg p-2 ${
+        className={`w-[600px] flex flex-wrap justify-start items-center gap-2 rounded-lg p-2 ${
           click
             ? `border border-purple-700 border-t-black`
             : 'border border-gray-200'
         } transition-opacity duration-500 ease-in-out ${
           fade ? `opacity-100` : `opacity-0`
         }`}
+        onClick={(e) => {
+          e.stopPropagation();
+          setClick(true);
+        }}
       >
         {tags.map((tag) => (
           <div
             key={tag.id}
             className="flex items-center gap-2 bg-purple-800 text-white px-2 py-1 rounded-lg"
+            onClick={(e) => {
+              e.stopPropagation();
+              setClick(false);
+            }}
           >
             <span>{tag.content}</span>
             <div
-              className="w-4 h-4 border border-black rounded-full bg-white text-black cursor-grab"
-              onClick={() =>
-                setTags((prev) => prev.filter((item) => item.id !== tag.id))
-              }
+              className="w-4 h-4 border border-black rounded-full bg-white text-black cursor-pointer"
+              onClick={(e) => {
+                setTags((prev) => prev.filter((item) => item.id !== tag.id));
+              }}
             >
               <svg
                 focusable="false"
@@ -51,24 +69,17 @@ export default function Tag() {
           </div>
         ))}
         <input
-          className="w-96 h-6 outline-none placeholder:text-gray-600"
+          className="min-w-[200px] flex-1 h-6 outline-none placeholder:text-gray-600"
           type={'text'}
           value={input}
+          maxLength={30}
           placeholder="Please enter to add tags"
           onClick={(e) => {
             e.stopPropagation();
             setClick(true);
           }}
           onChange={(e) => setInput(e.target.value)}
-          onKeyPress={(e) => {
-            if (e.key === 'Enter') {
-              setTags((prev) => [
-                ...prev,
-                { content: input, id: prev[prev.length - 1].id + 1 },
-              ]);
-              setInput('');
-            }
-          }}
+          onKeyDown={(e) => handleKeyDown(e)}
         />
       </div>
     </div>

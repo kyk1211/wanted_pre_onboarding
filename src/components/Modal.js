@@ -8,10 +8,18 @@ export default function Modal() {
     setFade(true);
   }, []);
 
+  useEffect(() => {
+    if (show) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [show]);
+
   return (
     <>
       <div
-        className={`w-full h-96 flex items-center justify-center transition-opacity duration-500 ease-in-out ${
+        className={`w-full h-[calc(100%-48px)] flex items-center justify-center transition-opacity duration-500 ease-in-out ${
           fade ? `opacity-100` : `opacity-0`
         }`}
       >

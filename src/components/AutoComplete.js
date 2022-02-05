@@ -25,6 +25,27 @@ export default function AutoComplete() {
   const [index, setIndex] = useState(null);
   const [fade, setFade] = useState(false);
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setIndex((prev) =>
+        prev === null ? filtered.length - 1 : prev === 0 ? null : prev - 1
+      );
+    }
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setIndex((prev) =>
+        prev === null ? 0 : prev === filtered.length - 1 ? null : prev + 1
+      );
+    }
+    if (e.key === 'Enter') {
+      setInputValue(autoValue);
+      setAutoValue('');
+      setFocus(false);
+      e.currentTarget.blur();
+    }
+  };
+
   useEffect(() => {
     setFade(true);
   }, []);
@@ -51,7 +72,6 @@ export default function AutoComplete() {
       className={`w-full h-5/6 flex flex-col items-center p-2 transition-opacity duration-500 ease-in-out ${
         fade ? `opacity-100` : `opacity-0`
       }`}
-      onClick={() => setFocus(false)}
     >
       <div
         className={`w-[500px] h-10 px-3 py-2 flex justify-between border-gray-400 border rounded-xl  
@@ -78,29 +98,7 @@ export default function AutoComplete() {
             setAutoValue('');
           }}
           onFocus={() => setFocus(true)}
-          onBlur={() => setIndex(null)}
-          onKeyDown={(e) => {
-            if (e.key === 'ArrowUp') {
-              e.preventDefault();
-              setIndex((prev) =>
-                prev === null
-                  ? filtered.length - 1
-                  : prev === 0
-                  ? null
-                  : prev - 1
-              );
-            }
-            if (e.key === 'ArrowDown') {
-              e.preventDefault();
-              setIndex((prev) =>
-                prev === null
-                  ? 0
-                  : prev === filtered.length - 1
-                  ? null
-                  : prev + 1
-              );
-            }
-          }}
+          onKeyDown={(e) => handleKeyDown(e)}
         />
         <span
           className={`w-6 h-6 cursor-pointer flex justify-center items-center ${
@@ -127,9 +125,12 @@ export default function AutoComplete() {
           {filtered.map((item, idx) => (
             <span
               key={idx}
-              className={`p-1 rounded cursor-pointer hover:bg-gray-200`}
+              className={`p-1 rounded cursor-pointer ${
+                index === idx ? `bg-gray-200` : 'hover:bg-gray-200'
+              } `}
               onClick={() => {
-                setAutoValue(item);
+                setInputValue(item);
+                setAutoValue('');
                 setFocus(false);
               }}
             >
