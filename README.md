@@ -1,5 +1,9 @@
 # 과제 설명
 
+- 배포url
+
+https://kyk1211.github.io/wanted_pre_onboarding/
+
 ## 1. AutoComplete
 
 ### 1.1 구현 방법
