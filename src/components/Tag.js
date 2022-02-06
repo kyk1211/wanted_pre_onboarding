@@ -14,7 +14,7 @@ export default function Tag() {
     if (e.key === 'Enter') {
       setTags((prev) => [
         ...prev,
-        { content: input, id: prev[prev.length - 1].id + 1 },
+        { content: input, id: prev.length ? prev[prev.length - 1].id + 1 : 0 },
       ]);
       setInput('');
     }
