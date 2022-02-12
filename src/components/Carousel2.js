@@ -12,10 +12,12 @@ export default function Carousel() {
 
   const handleNextClick = useCallback(() => {
     setIndex((prev) => (prev + 1) % len);
+    setTime(300);
   }, [len]);
 
   const handlePrevClick = useCallback(() => {
     setIndex((prev) => (prev - 1) % len);
+    setTime(300);
   }, [len]);
 
   const cloneSlide = (slide) => {
@@ -61,32 +63,32 @@ export default function Carousel() {
     setClone(cloneSlide(colors));
   }, [colors]);
 
-  // useEffect(() => {
-  //   if (timer) {
-  //     clearInterval(timer);
-  //   }
-  //   setTimer(
-  //     setInterval(() => {
-  //       handleNextClick();
-  //     }, 3000)
-  //   );
-  //   return () => clearInterval(timer);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [handleNextClick]);
+  useEffect(() => {
+    if (timer) {
+      clearInterval(timer);
+    }
+    setTimer(
+      setInterval(() => {
+        handleNextClick();
+      }, 3000)
+    );
+    return () => clearInterval(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [handleNextClick]);
 
   return (
     <div className="w-full h-[200px] relative mt-2">
       <div className="w-full h-full overflow-hidden relative">
         <div
           className="w-[calc(6*100%)] h-full flex"
-          // onMouseEnter={() => clearInterval(timer)}
-          // onMouseLeave={() =>
-          //   setTimer(
-          //     setInterval(() => {
-          //       handleNextClick();
-          //     }, 3000)
-          //   )
-          // }
+          onMouseEnter={() => clearInterval(timer)}
+          onMouseLeave={() =>
+            setTimer(
+              setInterval(() => {
+                handleNextClick();
+              }, 3000)
+            )
+          }
         >
           {clone.map((color, idx) => {
             return (
