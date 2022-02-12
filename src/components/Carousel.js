@@ -23,10 +23,11 @@ export default function Carousel() {
       }, 3000)
     );
     return () => clearInterval(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [handleNextClick]);
 
   return (
-    <div className="w-full h-[200px] relative ">
+    <div className="w-full h-[200px] relative mt-2">
       <div className="w-full h-full overflow-hidden relative">
         <div
           className="w-full h-full flex transition-opacity duration-300 ease-linear"
@@ -43,7 +44,7 @@ export default function Carousel() {
             if (idx === index) {
               return (
                 <div
-                  className={`w-full h-full flex items-center justify-center m-2 ${
+                  className={`w-full h-full flex items-center justify-center mx-2 ${
                     color === 1 ? `bg-red-500` : `bg-blue-500`
                   } animate-fadeIn`}
                   key={idx}
@@ -57,19 +58,19 @@ export default function Carousel() {
               return null;
             }
           })}
+          <div
+            className="absolute top-[50%] left-2 rounded-full w-5 h-5 bg-white flex items-center justify-center cursor-pointer"
+            onClick={handlePrevClick}
+          >
+            p
+          </div>
+          <div
+            className="absolute top-[50%] right-2 rounded-full w-5 h-5 bg-white flex items-center justify-center cursor-pointer"
+            onClick={handleNextClick}
+          >
+            n
+          </div>
         </div>
-      </div>
-      <div
-        className="absolute top-[50%] left-2 rounded-full w-5 h-5 bg-white flex items-center justify-center cursor-pointer"
-        onClick={handlePrevClick}
-      >
-        p
-      </div>
-      <div
-        className="absolute top-[50%] right-2 rounded-full w-5 h-5 bg-white flex items-center justify-center cursor-pointer"
-        onClick={handleNextClick}
-      >
-        n
       </div>
       <div className="flex justify-center gap-2 absolute bottom-0 right-0 left-0 mb-1">
         {colors.map((_, idx) => (
