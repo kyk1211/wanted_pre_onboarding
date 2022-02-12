@@ -16,7 +16,12 @@ export default function Carousel() {
   }, [len]);
 
   const handlePrevClick = useCallback(() => {
-    setIndex((prev) => (prev - 1) % len);
+    setIndex((prev) => {
+      if (prev <= 0) {
+        return -1;
+      }
+      return (prev - 1 + len) % len;
+    });
     setTime(300);
   }, [len]);
 
