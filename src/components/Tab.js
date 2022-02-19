@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import AutoComplete from './AutoComplete';
+import Carousel from './Carousel';
+import Carousel2 from './Carousel2';
 import ClickToEdit from './ClickToEdit';
 import Modal from './Modal';
 import Tag from './Tag';
@@ -39,6 +41,8 @@ export default function Tab() {
           ))}
         </ul>
       </nav>
+      <Carousel />
+      <Carousel2 />
       {content}
     </div>
   );
