@@ -87,19 +87,19 @@ export default function Carousel() {
   }, [handleNextClick]);
 
   return (
-    <div className="w-full h-[200px] relative mt-2">
+    <div
+      className="w-full h-[200px] relative mt-2"
+      onMouseEnter={() => clearInterval(timer)}
+      onMouseLeave={() =>
+        setTimer(
+          setInterval(() => {
+            handleNextClick();
+          }, 3000)
+        )
+      }
+    >
       <div className="w-full h-full">
-        <div
-          className="w-[calc(6*100%)] h-full flex"
-          onMouseEnter={() => clearInterval(timer)}
-          onMouseLeave={() =>
-            setTimer(
-              setInterval(() => {
-                handleNextClick();
-              }, 3000)
-            )
-          }
-        >
+        <div className="w-[calc(6*100%)] h-full flex">
           {clone.map((color, idx) => {
             return (
               <div
@@ -116,19 +116,19 @@ export default function Carousel() {
               </div>
             );
           })}
-          <div
-            className="absolute top-[50%] left-2 rounded-full w-5 h-5 bg-white flex items-center justify-center cursor-pointer"
-            onClick={handlePrevClick}
-          >
-            p
-          </div>
-          <div
-            className="absolute top-[50%] right-2 rounded-full w-5 h-5 bg-white flex items-center justify-center cursor-pointer"
-            onClick={handleNextClick}
-          >
-            n
-          </div>
         </div>
+      </div>
+      <div
+        className="absolute top-[50%] left-2 rounded-full w-5 h-5 bg-white flex items-center justify-center cursor-pointer"
+        onClick={handlePrevClick}
+      >
+        p
+      </div>
+      <div
+        className="absolute top-[50%] right-2 rounded-full w-5 h-5 bg-white flex items-center justify-center cursor-pointer"
+        onClick={handleNextClick}
+      >
+        n
       </div>
       <div className="flex justify-center gap-2 absolute bottom-0 right-0 left-0 mb-1">
         {colors.map((_, idx) => (
