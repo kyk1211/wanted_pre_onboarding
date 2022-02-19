@@ -11,9 +11,14 @@ export default function Carousel() {
   const len = colors.length + 1;
 
   const handleNextClick = useCallback(() => {
-    setIndex((prev) => (prev + 1) % len);
+    setIndex((prev) => {
+      if (prev >= colors.length) {
+        return colors.length;
+      }
+      return (prev + 1) % len;
+    });
     setTime(300);
-  }, [len]);
+  }, [colors.length, len]);
 
   const handlePrevClick = useCallback(() => {
     setIndex((prev) => {
@@ -38,7 +43,7 @@ export default function Carousel() {
 
   useEffect(() => {
     let timer1;
-    if (index === 4) {
+    if (index === colors.length) {
       timer1 = setTimeout(() => {
         setTime(0);
         setIndex(0);
@@ -52,17 +57,17 @@ export default function Carousel() {
     }
     return () => clearTimeout(timer1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [index]);
+  }, [colors.length, index]);
 
   useEffect(() => {
     if (index === -1) {
-      setIndicater(3);
-    } else if (index === 4) {
+      setIndicater(colors.length - 1);
+    } else if (index === colors.length) {
       setIndicater(0);
     } else {
       setIndicater(index);
     }
-  }, [index]);
+  }, [colors.length, index]);
 
   useEffect(() => {
     setClone(cloneSlide(colors));
@@ -83,7 +88,7 @@ export default function Carousel() {
 
   return (
     <div className="w-full h-[200px] relative mt-2">
-      <div className="w-full h-full overflow-hidden relative">
+      <div className="w-full h-full">
         <div
           className="w-[calc(6*100%)] h-full flex"
           onMouseEnter={() => clearInterval(timer)}
